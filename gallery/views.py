@@ -5,7 +5,7 @@ from django.http import HttpResponse
     #return HttpResponse("<h1>Добро Пожаловать в 3D хранилище</h1><p>Система работает .</p>")
 
 def about(request):
-    return HttpResponse("<h1>Курс WEB структуры.</h1>")
+     return render(request, 'gallery/about.html')
 
 def home(request):
 
@@ -22,3 +22,4 @@ def home(request):
     }
     
     return render(request, 'gallery/index.html', context_data)
+ 

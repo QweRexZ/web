@@ -7,23 +7,28 @@
 
 <body>
     <header>
-    <h1>{{ page_title }}</h1>
-</header>
+        <h1>{{ page_title }}</h1>
+        <nav>
+            <a href="/about/">О нас</a>
+        </nav>
+    </header>
 
-<main>
-    <h2>Доступные ассеты:</h2>
-<!-- Цикл for в шаблоне Django -->
-    <ul>
-        {% for asset in assets %}
-            <li>
-                <strong>{{ asset.name }}</strong>
-                <small>(Размер: {{ asset.file_size }})</small>
-                <!-- Ссылка-заглушка -->
-                <a href="#">[Скачать]</a>
-            </li>
-        {% empty %}
-            <!-- Этот блок сработает, если список assets пустой -->
-            <li>Нет доступных моделей.</li>
-        {% endfor %}
-    </ul>
-</main>
+    <main>
+        <h2>Доступные ассеты:</h2>
+        <!-- Цикл for в шаблоне Django -->
+        <ul>
+            {% for asset in assets %}
+                <li>
+                    <strong>{{ asset.name }}</strong>
+                    <small>(Размер: {{ asset.file_size }})</small>
+                    <!-- Ссылка-заглушка -->
+                    <a href="#">[Скачать]</a>
+                </li>
+            {% empty %}
+                <!-- Этот блок сработает, если список assets пустой -->
+                <li>Нет доступных моделей.</li>
+            {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>
