@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузка модели</title>
+</head>
+<body>
+    <h1>Загрузка модели</h1>
+    
+    <form method="post" enctype="multipart/form-data" action="/upload/">
+        {% csrf_token %}
+        <label for="id_title">Название:</label>
+        <input type="text" name="title" id="id_title" placeholder="Название" required>
+        
+        <label for="id_file">Файл модели (.glb):</label>
+        <input type="file" name="file" id="id_file" accept=".glb" required>
+        
+        <button type="submit">Загрузить</button>
+    </form>
+    
+    <a href="/">Назад</a>
+</body>
+</html>
