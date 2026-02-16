@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Asset
+from .forms import AssetForm
+from django.shortcuts import redirect
+from django.contrib import messages
+
 
 #def home(request):
     #return HttpResponse("<h1>Добро Пожаловать в 3D хранилище</h1><p>Система работает .</p>")
@@ -20,7 +24,20 @@ def home(request):
     return render(request, 'gallery/index.html', context_data)
 
 def upload(request):
-     return render(request, 'gallery/upload.html')
-
+    # 1. Обрабатываем GET-запрос (показываем пустую форму)
+    if request.method == 'GET':
+        form = AssetForm()
+        return render(request, 'gallery/upload.html', {'form': form})
+    
+    # 2. Обрабатываем POST-запрос
+    if request.method == 'POST':
+        form = AssetForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Файл успешно загружен!")
+            return redirect('home')
+        # 3. Если форма НЕ валидна - возвращаем её с ошибками
+        else:
+            return render(request, 'gallery/upload.html', {'form': form})
 
  

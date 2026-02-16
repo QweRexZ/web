@@ -3,21 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Загрузка модели</title>
+    <!-- Простой CSS для наглядности (пока без внешних файлов) -->
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; padding: 0
+1rem; }
+        .form-group { margin-bottom: 1rem; }
+        button { padding: 10px 20px; cursor: pointer; }
+    </style>
 </head>
 <body>
-    <h1>Загрузка модели</h1>
-    
-    <form method="post" enctype="multipart/form-data" action="/upload/">
+    <h1>Загрузить новую 3D модель</h1>
+
+
+    <!--
+        1. method="post": Чтобы отправить данные.
+        2. enctype="multipart/form-data": ОБЯЗАТЕЛЬНО для файлов!
+    -->
+    <form method="post" enctype="multipart/form-data">
+        <!-- Защита от хакеров -->
         {% csrf_token %}
-        <label for="id_title">Название:</label>
-        <input type="text" name="title" id="id_title" placeholder="Название" required>
-        
-        <label for="id_file">Файл модели (.glb):</label>
-        <input type="file" name="file" id="id_file" accept=".glb" required>
-        
-        <button type="submit">Загрузить</button>
+
+        <!-- Django сам нарисует label и input для всех полей -->
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit">Загрузить в базу</button>
     </form>
-    
-    <a href="/">Назад</a>
+    <br>
+    <a href="{% url 'home' %}">← Назад в галерею</a>
 </body>
 </html>

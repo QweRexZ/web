@@ -1,6 +1,9 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <link rel="stylesheet" href="{% static 'gallery/style.css' %}">
     <meta charset="UTF-8">
     <title>3D Storage</title>
 </head>
@@ -8,30 +11,52 @@
 <body>
     <header>
         <h1>{{ page_title }}</h1>
-        <nav>
-            <a href="/about/">О нас</a>
-        </nav>
+        <!-- Ссылка на загрузку теперь выглядит как кнопка -->
+        <a href="{% url 'upload_asset' %}" class="btn" style="background-color: #28a745;">+
+Загрузить модель</a>
     </header>
 
     <main>
-        <h2>Доступные ассеты:</h2>
-        <!-- Цикл for в шаблоне Django -->
-    <p>
-    <a href="{% url 'upload_asset' %}">Загрузить модель</a>
-    </p>
-        <ul>
+        <!-- Контейнер сетки -->
+        <div class="gallery-grid">
+
             {% for asset in assets %}
-                <!-- Внутри цикла for -->
-            <li>
-                 <strong>{{ asset.title }}</strong>
-                <!-- asset.file.url — это ссылка на файл (/media/3d_assets/...) -->
-                <!-- asset.file.size — размер в байтах. filter 'filesizeformat' делает его читаемым
-                (MB/KB) -->
-                <small>(Размер: {{ asset.file.size|filesizeformat }})</small>
-                <a href="{{ asset.file.url }}" download>[Скачать файл]</a>
-            </li>
+                <!-- Карточка -->
+                <div class="asset-card">
+
+                    <!-- 1. Превью (Верхняя часть) -->
+                    <!-- Пока здесь просто серый квадрат с иконкой куба -->
+                    <!-- На 6-й неделе здесь будет картинка, на 5-й - 3D сцена -->
+                    <div class="card-preview">
+                        Wait...
+                    </div>
+
+                    <!-- 2. Информация (Нижняя часть) -->
+                    <div class="card-info">
+                        <h3 class="card-title">{{ asset.title }}</h3>
+
+                        <div class="card-meta">
+                            <span>📅 {{ asset.created_at|date:"d M Y" }}</span>
+                            <!-- Если есть файл, показываем размер -->
+                            {% if asset.file %}
+                                <span style="float: right;">💾 {{
+asset.file.size|filesizeformat }}</span>
+                                {% endif %}
+                        </div>
+
+                        <!-- Кнопка скачивания -->
+                        {% if asset.file %}
+                        <a href="{{ asset.file.url }}" class="btn" download>Скачать
+.glb</a>
+                        {% else %}
+                            <span style="color: red;">Файл потерян</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <p>База пуста.</p>
             {% endfor %}
-        </ul>
+        </div>
     </main>
 </body>
 </html>
