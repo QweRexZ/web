@@ -27,8 +27,11 @@
                     <!-- 1. Превью (Верхняя часть) -->
                     <!-- Пока здесь просто серый квадрат с иконкой куба -->
                     <!-- На 6-й неделе здесь будет картинка, на 5-й - 3D сцена -->
-                    <div class="card-preview">
-                        Wait...
+                   <div class="card-preview"
+                        id="model-container-{{ asset.id }}"
+                        data-url="{{ asset.file.url }}">
+<!-- Временно оставим текст, пока JS не заменит его на Canvas -->
+                        🎲
                     </div>
 
                     <!-- 2. Информация (Нижняя часть) -->
@@ -39,8 +42,7 @@
                             <span>📅 {{ asset.created_at|date:"d M Y" }}</span>
                             <!-- Если есть файл, показываем размер -->
                             {% if asset.file %}
-                                <span style="float: right;">💾 {{
-asset.file.size|filesizeformat }}</span>
+                                <span style="float: right;">💾 {{asset.file.size|filesizeformat }}</span>
                                 {% endif %}
                         </div>
 
